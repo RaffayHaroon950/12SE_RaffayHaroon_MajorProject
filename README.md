@@ -1,3 +1,5 @@
 # 11SE_RaffayHaroon_MajorProject
 
-Wonder what I'll say here...
+To run Studos in Python, please execute main.py!
+
+Thanks, and enjoy 😊.

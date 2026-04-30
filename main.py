@@ -1,9 +1,4 @@
-# Imports
-import customtkinter as tk
+# Screens
+from welcome_screen import *
 
-# Window
-root = tk.CTk()
-root.title("Studos")
-root.geometry("1000x600")
-
-root.mainloop()
+welcome_screen()
