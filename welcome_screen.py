@@ -15,6 +15,7 @@ def welcome_screen():
     welcome_image = ctk.CTkImage(welcome_image, welcome_image, (456, 185))
     welcome_label = ctk.CTkLabel(root, text="", image=welcome_image)
     caption_label = ctk.CTkLabel(root, text="Learning. Redefined.", text_color="black", font=ctk.CTkFont(weight='bold', size=30))
+    
     welcome_button_image = Image.open("Assets/welcome_button.png")
     welcome_button_image = ctk.CTkImage(welcome_button_image, welcome_button_image, (115, 100))
     welcome_button = ctk.CTkButton(root, command=lambda: (root.withdraw(), setup1_studyplan_screen()), text="", fg_color="#e5d2e9", corner_radius=20, image=welcome_button_image)
