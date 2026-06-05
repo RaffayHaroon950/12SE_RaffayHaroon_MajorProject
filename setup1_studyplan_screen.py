@@ -29,6 +29,7 @@ def setup1_studyplan_screen():
     root.title("Your Study Plan")
     root.geometry("1000x600")
     root.configure(fg_color="#ead2d2")
+    root.protocol("WM_DELETE_WINDOW", exit)
 
     title_image = Image.open("Assets/setup1_studyplan_title.png")
     title_image = ctk.CTkImage(title_image, title_image, title_image.size)
@@ -48,7 +49,7 @@ def setup1_studyplan_screen():
     row = 0
 
     for subject in year_9_subjects:
-        subject_checkbox = ctk.CTkCheckBox(subjects_frame, text=subject, text_color="white")
+        subject_checkbox = ctk.CTkCheckBox(subjects_frame, text=subject, text_color="black", fg_color="black", border_color="black")
         subject_checkbox.grid(row=row, column=0, sticky="W")
         row += 1
 

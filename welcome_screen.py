@@ -1,4 +1,4 @@
-# Package mports
+# Package imports
 import customtkinter as ctk
 from tkinter import *
 from PIL import Image
