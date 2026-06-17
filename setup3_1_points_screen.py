@@ -4,7 +4,7 @@ from tkinter import *
 from PIL import Image
 from setup3_2_points_screen import *
 
-def setup3_1_points_screen():
+def setup3_1_points_screen(get_study_break_split):
     # Window
     root = ctk.CTkToplevel()
     root.title("Earn Points")
@@ -17,7 +17,7 @@ def setup3_1_points_screen():
 
     start_button_image = Image.open("Assets/setup3_1_start_button.png")
     start_button_image = ctk.CTkImage(start_button_image, start_button_image, (150, 60))
-    start_button = ctk.CTkButton(root, command=lambda: (root.withdraw(), setup3_2_points_screen()), text="", fg_color="#e5d2e9", corner_radius=20, image=start_button_image)
+    start_button = ctk.CTkButton(root, command=lambda: (root.withdraw(), setup3_2_points_screen(get_study_break_split)), text="", fg_color="#e5d2e9", corner_radius=20, image=start_button_image)
 
     backdrop_label.place(relx=0, rely=0, anchor=NW)
     start_button.place(relx=0.5, rely=0.8, anchor=CENTER)

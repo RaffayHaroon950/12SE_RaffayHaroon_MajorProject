@@ -4,7 +4,7 @@ from tkinter import *
 from PIL import Image
 from time import sleep
 
-def dashboard():
+def dashboard(get_study_break_split, point_system):
     # Window
     root = ctk.CTkToplevel()
     root.title("Dashboard")
@@ -21,13 +21,18 @@ def dashboard():
     global todo_cur
     todo_cur = 0
 
-    # Timer
-    timer_label = ctk.CTkLabel(root, 400, 370, text="25:00\n", text_color="black", fg_color="white", corner_radius=20)
-    timer_label.cget("font").configure(size=70)
-    timer_type_label = ctk.CTkLabel(timer_label, text="   Pomodoro: 25m study, 5m break", text_color="black", fg_color="lightgray", image=ctk.CTkImage(Image.open("Assets/tomato.png"), Image.open("Assets/tomato.png"), (20, 20)), compound="left", corner_radius=20)
+    '''
+    Timer
+    '''
     global timer_remaining_time, timer_paused, timer_study
-    timer_remaining_time = 11
-    timer_paused = timer_study = False
+    study_break_split = get_study_break_split()
+    timer_remaining_time = study_break_split.study_time * 60
+    mins, secs = divmod(timer_remaining_time, 60)
+    timer_label = ctk.CTkLabel(root, 400, 370, text=f"{mins:02d}:{secs:02d}\n", text_color="black", fg_color="white", corner_radius=20)
+    timer_label.cget("font").configure(size=70)
+    timer_type_label = ctk.CTkLabel(timer_label, text="   Pomodoro: 25m study, 5m break" if study_break_split.study_time == 25 and study_break_split.break_time == 5 else f"   Custom: {study_break_split.study_time}m study, {study_break_split.break_time}m break", text_color="black", fg_color="lightgray", image=ctk.CTkImage(Image.open("Assets/tomato.png"), Image.open("Assets/tomato.png"), (20, 20)) if study_break_split.study_time == 25 and study_break_split.break_time == 5 else ctk.CTkImage(Image.open("Assets/clock.png"), Image.open("Assets/clock.png"), (20, 20)), compound="left", corner_radius=20)
+    timer_paused = False
+    timer_study = True
 
     def timer_update():
         global timer_remaining_time, timer_paused, timer_study
@@ -43,13 +48,15 @@ def dashboard():
                 timer has ended. Else, switch back to study mode.
                 '''
                 timer_study = False if timer_study else True
-                timer_remaining_time = 10
                 timer_paused = True
                 timer_play_button.configure(text="▶️ Start studying" if timer_study else "▶️ Start break", command=timer_play_button_unpaused_command)
+                timer_remaining_time = study_break_split.study_time * 60 if timer_study else study_break_split.break_time * 60
+                mins, secs = divmod(timer_remaining_time, 60)
+                timer_label.configure(text=f"{mins:02d}:{secs:02d}\n")
                 root.update_idletasks()
                 sleep(1)
 
-    timer_play_button = ctk.CTkButton(timer_label, text="▶  Start studying", width=50, height=50, corner_radius=20)
+    timer_play_button = ctk.CTkButton(timer_label, text="▶️  Start studying", width=50, height=50, corner_radius=20)
     timer_play_button.cget("font").configure(size=15)
 
     def timer_play_button_pause_command():

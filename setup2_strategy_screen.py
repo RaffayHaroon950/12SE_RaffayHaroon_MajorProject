@@ -24,7 +24,6 @@ def setup2_strategy_screen():
     heart_image = Image.open("Assets/setup2_strategy_heartdrop.png")
     heart_image = ctk.CTkImage(heart_image, heart_image, (330, 300))
     heart_label = ctk.CTkLabel(root, image=heart_image, text="")
-    next_button = ctk.CTkButton(root, command=lambda: (root.withdraw(), setup3_1_points_screen()), text="Next")
 
     '''
     Pomodoro technique option
@@ -47,19 +46,14 @@ def setup2_strategy_screen():
     '''
 
     def pom_button_command():
-        '''
-        Deselect the other button and select the one that's clicked on
-        '''
-        com_button.configure(fg_color="#ead2d2")
-        pom_button.configure(fg_color="#1F6AA5")
+        global study_time, break_time
+        study_time = 25
+        break_time = 5
+        root.withdraw()
+        setup3_1_points_screen(get_study_break_split)
 
     def com_button_command():
         global study_time, break_time
-        '''
-        Same deselection
-        '''
-        pom_button.configure(fg_color="#ead2d2")
-        com_button.configure(fg_color="#1F6AA5")
         '''
         Use a pop-up to ask what study-break split they'd like.
         '''
@@ -68,6 +62,7 @@ def setup2_strategy_screen():
                 study_time = int(ctk.CTkInputDialog(title="Quick question!", text="How many minutes would you like for one study session?").get_input())
             except:
                 messagebox.showerror(title="Error!", message="Please enter a number!")
+        
 
         while break_time is None:
             try:
@@ -77,12 +72,15 @@ def setup2_strategy_screen():
                 '''
                 if break_time > study_time:
                     break_time = None
-                    messagebox.showerror(title="Hold on!", text="Break time cannot be greater than study time!")
+                    messagebox.showerror(title="Hold on!", message="Break time cannot be greater than study time!")
                     '''
                     Triggers the loop to run and ask the user again.
                     '''
             except:
                 messagebox.showerror(title="Error!", message="Please enter a number!")
+
+        root.withdraw()
+        setup3_1_points_screen(get_study_break_split)
     
     pom_button.configure(command=pom_button_command)
     com_button.configure(command=com_button_command)
@@ -94,7 +92,6 @@ def setup2_strategy_screen():
     heart_label.place(relx=0.85, rely=0.75, anchor=CENTER)
     pom_button.place(relx=0.2, rely=0.6, anchor=CENTER)
     com_button.place(relx=0.52, rely=0.6, anchor=CENTER)
-    next_button.place(relx=0.35, rely=0.9, anchor=CENTER)
 
     root.mainloop()
 
