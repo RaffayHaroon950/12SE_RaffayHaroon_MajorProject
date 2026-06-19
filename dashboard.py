@@ -5,19 +5,25 @@ from PIL import Image
 from time import sleep
 
 def dashboard(get_study_break_split, point_system):
-    # Window
+    '''
+    Window
+    '''
     root = ctk.CTkToplevel()
     root.title("Dashboard")
     root.geometry("1000x600")
     root.configure(fg_color="#ead2d2")
     root.protocol("WM_DELETE_WINDOW", exit)
 
-    # Dashboard title
+    '''
+    Dashboard title
+    '''
     dashboard_title_image = Image.open("Assets/dashboard_title.png")
     dashboard_title_image = ctk.CTkImage(dashboard_title_image, dashboard_title_image, (500, 100))
     dashboard_title_image_label = ctk.CTkLabel(root, text="", image=dashboard_title_image)
 
-    # Editable to-do list
+    '''
+    Editable to-do list
+    '''
     global todo_cur
     todo_cur = 0
 
@@ -33,6 +39,12 @@ def dashboard(get_study_break_split, point_system):
     timer_type_label = ctk.CTkLabel(timer_label, text="   Pomodoro: 25m study, 5m break" if study_break_split.study_time == 25 and study_break_split.break_time == 5 else f"   Custom: {study_break_split.study_time}m study, {study_break_split.break_time}m break", text_color="black", fg_color="lightgray", image=ctk.CTkImage(Image.open("Assets/tomato.png"), Image.open("Assets/tomato.png"), (20, 20)) if study_break_split.study_time == 25 and study_break_split.break_time == 5 else ctk.CTkImage(Image.open("Assets/clock.png"), Image.open("Assets/clock.png"), (20, 20)), compound="left", corner_radius=20)
     timer_paused = False
     timer_study = True
+
+    '''
+    Coin/XP count (for finishing tasks)
+    '''
+    point_label = ctk.CTkLabel(root, text="  0", text_color="black", fg_color="white", image=ctk.CTkImage(Image.open("Assets/coin.png"), Image.open("Assets/coin.png"), (30, 30)) if point_system == "COINS" else ctk.CTkImage(Image.open("Assets/xp.png"), Image.open("Assets/xp.png"), (30, 30)), compound="left", padx=8, pady=5, corner_radius=20)
+    point_label.cget("font").configure(size=15)
 
     def timer_update():
         global timer_remaining_time, timer_paused, timer_study
@@ -172,17 +184,24 @@ def dashboard(get_study_break_split, point_system):
                 root.update_idletasks()
                 sleep(0.8)
                 i.destroy()
+                '''
+                Also, increment the coin/XP count.
+                '''
+                point_label.configure(text=f"  {int(point_label.cget("text")) + 1}")
                 break
 
     todo_task_complete_button = ctk.CTkButton(todo_frame, command=todo_task_complete_button_command, text="✅ Mark as done", width=28)
     todo_task_delete_button = ctk.CTkButton(todo_frame, command=todo_task_delete_button_command, text="🗑️ Delete", width=28)
 
-    # Widget placements
+    '''
+    Widget placements
+    '''
     dashboard_title_image_label.place(relx=0.03, rely=0.22, anchor=SW)
     todo_frame.place(relx=0.03, rely=0.88, anchor=SW)
     todo_add_button.place(relx=0.03, rely=0.91, anchor=NW)
     timer_label.place(relx=0.5, rely=0.88, anchor=SW)
     timer_type_label.grid(row=0, column=0, sticky='NW', padx=10, pady=10)
     timer_play_button.place(relx=0.5, rely=0.6, anchor=CENTER)
+    point_label.place(relx=0.8, rely=0.1, anchor=NW)
 
     root.mainloop()
