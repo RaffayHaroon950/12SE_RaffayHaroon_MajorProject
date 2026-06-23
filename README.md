@@ -11,3 +11,5 @@ Also, before running, please make sure you have these pip packages installed:
 - dataclasses
 
 Thanks, and enjoy 😊.
+
+P.S. This repository shows up as having 2 contributors. PotionSwirl is just my personal account!
