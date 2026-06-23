@@ -19,7 +19,7 @@ def welcome_screen():
     welcome_button_image = Image.open("Assets/welcome_button.png")
     welcome_button_image = ctk.CTkImage(welcome_button_image, welcome_button_image, (115, 100))
     welcome_button = ctk.CTkButton(root, command=lambda: (root.withdraw(), setup2_strategy_screen()), text="", fg_color="#e5d2e9", corner_radius=20, image=welcome_button_image)
-    welcome_button_label = ctk.CTkLabel(root, text="Enhance mine", text_color="#538cee", font=ctk.CTkFont(weight='bold', size=20))
+    welcome_button_label = ctk.CTkLabel(root, text="Let's do it!", text_color="#538cee", font=ctk.CTkFont(weight='bold', size=20))
 
     welcome_label.place(relx=0.5, rely=0.3, anchor=CENTER)
     caption_label.place(relx=0.5, rely=0.6, anchor=CENTER)

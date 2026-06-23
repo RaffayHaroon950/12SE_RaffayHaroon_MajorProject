@@ -1,4 +1,6 @@
-# Package imports
+'''
+Package imports
+'''
 import customtkinter as ctk
 from tkinter import *
 from tkinter import messagebox
@@ -10,8 +12,9 @@ global study_time, break_time
 study_time = break_time = None
 
 def setup2_strategy_screen():
-
-    # Window
+    '''
+    Window
+    '''
     root = ctk.CTkToplevel()
     root.title("Your Strategy")
     root.geometry("1000x600")

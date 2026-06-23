@@ -5,7 +5,9 @@ from PIL import Image
 from setup3_2_points_screen import *
 
 def setup3_1_points_screen(get_study_break_split):
-    # Window
+    '''
+    Window
+    '''
     root = ctk.CTkToplevel()
     root.title("Earn Points")
     root.geometry("1000x600")
